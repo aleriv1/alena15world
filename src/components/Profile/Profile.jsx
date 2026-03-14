@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../App";
-// import { useUpdateUserMutation } from "../../store/api";
+import { useUpdateUserMutation } from "../../store/api";
 
 import styles from "./Profile.module.scss";
 
 function Profile() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  // const [updateUser, { isLoading: isSubmitting }] = useUpdateUserMutation();
+  const [updateUser, { isLoading: isSubmitting }] = useUpdateUserMutation();
   const {
     register,
     handleSubmit,
@@ -57,7 +57,11 @@ function Profile() {
 
   return (
     <div className={styles.profile}>
-      <h2 className={styles.title}>Edit Profile</h2>
+      <h2>{user?.username === "admin" ? "Alena" : user?.username}</h2>
+      <ul>
+        <li>Дракон</li>
+      </ul>
+      {/* <h2 className={styles.title}>Edit Profile</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className={styles.label}>
           Username
@@ -150,7 +154,7 @@ function Profile() {
         >
           Save
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }

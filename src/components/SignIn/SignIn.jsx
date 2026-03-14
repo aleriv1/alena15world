@@ -14,6 +14,10 @@ function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading: isSubmitting, reset }] = useLoginMutation();
+
+  // ADDED: состояние для показа/скрытия пароля
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -65,16 +69,27 @@ function SignIn() {
             <span className={styles.error}>{errors.email.message}</span>
           )}
         </label>
+        {/* ИЗМЕНЕНО: поле пароля с кнопкой показа/скрытия */}
         <label className={styles.label}>
           Password
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password", {
-              required: "Password is required",
-            })}
-            className={errors.password ? styles.inputError : styles.input}
-          />
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showPassword ? "text" : "password"} // ИЗМЕНЕНО: динамический тип
+              placeholder="Password"
+              {...register("password", {
+                required: "Password is required",
+              })}
+              className={errors.password ? styles.inputError : styles.input}
+            />
+            <button
+              type="button"
+              className={styles.togglePassword}
+              onClick={() => setShowPassword(!showPassword)} // ADDED: переключение состояния
+              tabIndex="-1" // ADDED: чтобы кнопка не фокусилась при Tab
+            >
+              {showPassword ? "🙈" : "👁️"} {/* ADDED: иконки глаза */}
+            </button>
+          </div>
           {errors.password && (
             <span className={styles.error}>{errors.password.message}</span>
           )}

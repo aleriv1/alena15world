@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useGetArticlesQuery } from "../../store/api"; // ИЗМЕНЕНО: правильный хук
 import mockAva from "../../assets/mockAva.png";
+import AlenaAva from "../../assets/alena-square-ava.png";
 import styles from "./ArticleList.module.scss";
 
 function ArticleList() {
@@ -56,6 +57,8 @@ function ArticleList() {
                 className={styles.userImage}
                 src={
                   article._embedded?.author?.[0]?.avatar_urls?.[96] || mockAva
+                  // article._embedded?.author?.[0]?.avatar_urls?.[96] || AlenaAva
+                  // AlenaAva
                 }
                 alt=""
               />

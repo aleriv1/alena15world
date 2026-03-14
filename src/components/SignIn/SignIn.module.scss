@@ -1,4 +1,4 @@
-@use '../../variables.scss' as *;
+@use "../../variables.scss" as *;
 
 .signIn {
   max-width: 400px;
@@ -10,7 +10,7 @@
 
   .title {
     text-align: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -23,7 +23,7 @@
   .label {
     display: block;
     margin-bottom: 15px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -72,7 +72,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 
     &:hover {
       background-color: #40a9ff;
@@ -82,7 +82,7 @@
   .signUpLink {
     text-align: center;
     margin-top: 15px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -93,5 +93,30 @@
       color: #1890ff;
       text-decoration: none;
     }
+  }
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+  color: #666;
+
+  &:hover {
+    color: #333;
+  }
+
+  &:focus {
+    outline: none;
   }
 }

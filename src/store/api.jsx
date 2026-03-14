@@ -4,7 +4,7 @@ const API_URL = "https://cms.alena15world.ru/wp-json";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["Articles", "Article"], // Оставили старые теги, чтобы invalidateTags работал без правок в App.jsx
+  tagTypes: ["Articles", "Article", "User"], // ИЗМЕНЕНО: добавили тег User для профиля
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers) => {
@@ -35,14 +35,14 @@ export const api = createApi({
     // ADDED: получение текущего пользователя
     // =========================
     getCurrentUser: builder.query({
-      query: () => "/wp/v2/users/me",
+      query: () => "/wp/v2/users/me?_embed", // ИЗМЕНЕНО: добавили _embed для получения аватара
 
       // ADDED: сразу преобразуем ответ
       transformResponse: (user) => ({
         id: user.id,
         username: user.name,
         email: user.email,
-        avatar: user.avatar_urls?.["96"], // берем аватар
+        avatar: user.avatar_urls?.["96"] || user.simple_local_avatar?.full, // ИЗМЕНЕНО: пробуем получить аватар из Simple Local Avatars
       }),
     }),
 
@@ -76,7 +76,7 @@ export const api = createApi({
       }),
       invalidatesTags: ["Articles"],
     }),
-    // Добавить в endpoints builder
+
     updateArticle: builder.mutation({
       query: ({ id, article }) => ({
         url: `/wp/v2/posts/${id}`,
@@ -91,6 +91,41 @@ export const api = createApi({
         { type: "Article", id },
       ],
     }),
+
+    // =========================
+    // ADDED: обновление профиля пользователя
+    // =========================
+    updateUser: builder.mutation({
+      query: (userData) => ({
+        url: "/wp/v2/users/me",
+        method: "POST",
+        body: {
+          name: userData.username,
+          email: userData.email,
+          ...(userData.password && { password: userData.password }),
+          // ИЗМЕНЕНО: для аватара через Simple Local Avatars (если установлен)
+          ...(userData.image && {
+            meta: {
+              simple_local_avatar: {
+                full: userData.image,
+              },
+            },
+          }),
+        },
+      }),
+      // ИЗМЕНЕНО: обновляем кэш пользователя после сохранения
+      invalidatesTags: ["User"],
+      // ИЗМЕНЕНО: преобразуем ответ обратно в формат приложения
+      transformResponse: (user) => ({
+        user: {
+          id: user.id,
+          username: user.name,
+          email: user.email,
+          image:
+            user.avatar_urls?.["96"] || user.simple_local_avatar?.full || "",
+        },
+      }),
+    }),
   }),
 });
 
@@ -100,5 +135,6 @@ export const {
   useGetArticlesQuery,
   useGetArticleQuery,
   useCreateArticleMutation,
-  useUpdateArticleMutation, // <-- добавить эту строку
+  useUpdateArticleMutation,
+  useUpdateUserMutation, // ADDED: hook для обновления профиля
 } = api;

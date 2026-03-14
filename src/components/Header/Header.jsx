@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../App";
-import mockAva from "../../assets/mockAva.png";
+// import mockAva from "../../assets/mockAva.png";
+import AlenaAva from "../../assets/alena-square-ava.png";
 
 import styles from "./Header.module.scss";
 
@@ -36,7 +37,8 @@ function Header({ onLogout }) {
               </span>
               <img
                 // src={user.image || mockAva}
-                src={currentUser?.avatar || mockAva}
+                src={currentUser?.avatar || AlenaAva}
+                // src={AlenaAva}
                 alt={user.username}
                 className={styles.userAvatar}
               />
@@ -48,11 +50,11 @@ function Header({ onLogout }) {
         ) : (
           <>
             <Link to="/sign-in">
-              <button className={styles.signIn}>Sign In</button>
+              <button className={styles.signIn}>A</button>
             </Link>
-            <Link to="/sign-up">
+            {/* <Link to="/sign-up">
               <button className={styles.signUp}>Sign Up</button>
-            </Link>
+            </Link> */}
           </>
         )}
       </div>
