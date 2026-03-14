@@ -47,7 +47,7 @@ export const api = createApi({
     }),
 
     getArticles: builder.query({
-      query: ({ page = 1, limit = 10 }) =>
+      query: ({ page = 1, limit = 5 }) =>
         `/wp/v2/posts?per_page=${limit}&page=${page}&_embed&categories=2`,
       providesTags: ["Articles"],
       transformResponse: (posts, meta) => ({

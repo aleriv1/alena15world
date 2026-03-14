@@ -12,6 +12,7 @@ import Profile from "./components/Profile/Profile";
 import Header from "./components/Header/Header";
 import CreateArticle from "./components/CreateArticle/CreateArticle";
 import EditArticle from "./components/EditArticle/EditArticle";
+import Footer from "./components/Footer/Footer"; // ADDED: импорт футера
 import styles from "./App.module.scss";
 
 export const AuthContext = createContext();
@@ -44,30 +45,34 @@ function App() {
       <Router>
         <div className={styles.app}>
           <Header onLogout={handleLogout} />
-          <Routes>
-            <Route path="/" element={<ArticleList />} />
-            <Route path="/articles" element={<ArticleList />} />
-            <Route
-              path="/articles/:slug/edit"
-              element={
-                <PrivateRoute>
-                  <EditArticle />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/articles/:slug" element={<ArticleDetail />} />
-            {/* <Route path="/sign-up" element={<SignUp />} /> */}
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route
-              path="/new-article"
-              element={
-                <PrivateRoute>
-                  <CreateArticle />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
+
+          <main className={styles.mainContent}>
+            <Routes>
+              <Route path="/" element={<ArticleList />} />
+              <Route path="/articles" element={<ArticleList />} />
+              <Route
+                path="/articles/:slug/edit"
+                element={
+                  <PrivateRoute>
+                    <EditArticle />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/articles/:slug" element={<ArticleDetail />} />
+              {/* <Route path="/sign-up" element={<SignUp />} /> */}
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/new-article"
+                element={
+                  <PrivateRoute>
+                    <CreateArticle />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </main>
+          <Footer />
         </div>
       </Router>
     </AuthContext.Provider>

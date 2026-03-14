@@ -50,7 +50,10 @@ function Header({ onLogout }) {
         ) : (
           <>
             <Link to="/sign-in">
-              <button className={styles.signIn}>A</button>
+              <button className={styles.signIn}>
+                A<br />
+                Login
+              </button>
             </Link>
             {/* <Link to="/sign-up">
               <button className={styles.signUp}>Sign Up</button>

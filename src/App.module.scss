@@ -6,7 +6,11 @@ body {
 .app {
   font-family: Arial, sans-serif;
   background-color: #e9ecef;
+
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  // background-color: #f8f9fa;
 
   .loading {
     color: #666;
@@ -19,4 +23,9 @@ body {
     text-align: center;
     padding: 20px;
   }
+}
+
+.mainContent {
+  flex: 1;
+  width: 100%;
 }

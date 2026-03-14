@@ -104,9 +104,9 @@ function SignIn() {
         >
           Login
         </button>
-        <p className={styles.signUpLink}>
+        {/* <p className={styles.signUpLink}>
           Don’t have an account? <Link to="/sign-up">Sign Up.</Link>
-        </p>
+        </p> */}
       </form>
     </div>
   );
