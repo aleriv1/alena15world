@@ -61,6 +61,21 @@ export const api = createApi({
       }),
       invalidatesTags: ["Articles"],
     }),
+    // Добавить в endpoints builder
+    updateArticle: builder.mutation({
+      query: ({ id, article }) => ({
+        url: `/wp/v2/posts/${id}`,
+        method: "POST", // WordPress использует POST для обновления с ?_method=PUT или просто POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: article,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        "Articles",
+        { type: "Article", id },
+      ],
+    }),
   }),
 });
 
@@ -69,4 +84,5 @@ export const {
   useGetArticlesQuery,
   useGetArticleQuery,
   useCreateArticleMutation,
+  useUpdateArticleMutation, // <-- добавить эту строку
 } = api;

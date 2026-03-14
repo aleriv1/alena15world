@@ -1,4 +1,4 @@
-@use '../../variables.scss' as *;
+@use "../../variables.scss" as *;
 
 .header {
   display: flex;
@@ -11,9 +11,10 @@
 
   .logo {
     color: rgba(0, 0, 0, 0.85);
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-size: 18px;
     line-height: 28px;
+    font-style: italic;
   }
 
   .logoLink {
@@ -28,7 +29,7 @@
     button {
       height: 50px;
       border-radius: 7px;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       font-size: 18px;
       line-height: 28px;
       margin-left: 10px;
@@ -49,7 +50,7 @@
     .createArticle {
       border: 1px solid #52c41a;
       color: $success-color;
-      font-family: 'Inter';
+      font-family: "Inter";
       font-size: 14px;
       line-height: 22px;
       height: 32px;
@@ -64,7 +65,7 @@
 
     .userName {
       color: rgba(0, 0, 0, 0.85);
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       font-size: 18px;
       line-height: 28px;
       margin-right: 10px;

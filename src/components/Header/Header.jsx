@@ -1,18 +1,18 @@
-import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 
-import { AuthContext } from '../../App'
-import mockAva from '../../assets/mockAva.png'
+import { AuthContext } from "../../App";
+import mockAva from "../../assets/mockAva.png";
 
-import styles from './Header.module.scss'
+import styles from "./Header.module.scss";
 
 function Header({ onLogout }) {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   return (
     <header className={styles.header}>
       <Link to="/" className={styles.logoLink}>
-        <div className={styles.logo}>Realworld Blog</div>
+        <div className={styles.logo}>Alena Diary</div>
       </Link>
       <div className={styles.authButtons}>
         {user ? (
@@ -21,8 +21,15 @@ function Header({ onLogout }) {
               <button className={styles.createArticle}>Create article</button>
             </Link>
             <Link to="/profile" className={styles.profileLink}>
-              <span className={styles.userName}>{user.username}</span>
-              <img src={user.image || mockAva} alt={user.username} className={styles.userAvatar} />
+              {/* <span className={styles.userName}>{user.username}</span> */}
+              <span className={styles.userName}>
+                {user.username === "admin" ? "Alena" : user.username}
+              </span>
+              <img
+                src={user.image || mockAva}
+                alt={user.username}
+                className={styles.userAvatar}
+              />
             </Link>
             <button className={styles.logout} onClick={onLogout}>
               Log Out
@@ -40,7 +47,7 @@ function Header({ onLogout }) {
         )}
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
