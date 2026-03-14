@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../App";
@@ -13,11 +13,17 @@ import { useGetCurrentUserQuery } from "../../store/api";
 
 function Header({ onLogout }) {
   const { user } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false); // ADDED: состояние для меню
 
   // ADDED: запрос текущего пользователя из WordPress API
   const { data: currentUser } = useGetCurrentUserQuery(undefined, {
     skip: !user, // ADDED: если пользователь не залогинен — запрос не выполняется
   });
+
+  // ADDED: закрытие меню при клике на ссылку
+  const handleMenuClick = () => {
+    setMenuOpen(false);
+  };
 
   return (
     <header className={styles.header}>
@@ -28,7 +34,7 @@ function Header({ onLogout }) {
         {user ? (
           <>
             <Link to="/new-article">
-              <button className={styles.createArticle}>Create article</button>
+              <button className={styles.createArticle}>Create</button>
             </Link>
             <Link to="/profile" className={styles.profileLink}>
               {/* <span className={styles.userName}>{user.username}</span> */}
@@ -43,9 +49,52 @@ function Header({ onLogout }) {
                 className={styles.userAvatar}
               />
             </Link>
-            <button className={styles.logout} onClick={onLogout}>
-              Log Out
+            {/* Кнопка-цветок для меню */}
+            <button
+              className={`${styles.flowerButton} ${menuOpen ? styles.active : ""}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Меню"
+            >
+              🌸
             </button>
+
+            {/* Меню с почтой, админкой и logout */}
+            {menuOpen && (
+              <div
+                className={styles.overlay}
+                onClick={() => setMenuOpen(false)}
+              >
+                <div className={styles.dropdownMenu}>
+                  <a
+                    href="https://sprintmail.ru"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.dropdownItem}
+                    onClick={handleMenuClick}
+                  >
+                    📧 Почта
+                  </a>
+                  <a
+                    href="https://cms.alena15world.ru/wp-admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.dropdownItem}
+                    onClick={handleMenuClick}
+                  >
+                    ⚙️ Админка
+                  </a>
+                  <button
+                    onClick={() => {
+                      onLogout();
+                      handleMenuClick();
+                    }}
+                    className={`${styles.dropdownItem} ${styles["dropdownItem--button"]}`}
+                  >
+                    🚪 Log Out
+                  </button>
+                </div>
+              </div>
+            )}
           </>
         ) : (
           <>

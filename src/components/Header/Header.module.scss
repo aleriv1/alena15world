@@ -2,84 +2,225 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  height: 80px;
+  padding: 16px 24px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative; // ADDED: для позиционирования меню
+  z-index: 100;
 
-  .logo {
-    color: rgba(0, 0, 0, 0.85);
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    line-height: 28px;
-    font-style: italic;
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+  }
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #667eea;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #764ba2;
   }
 
-  .logoLink {
-    text-decoration: none;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+}
+
+// ADDED: стили для кнопки-цветка
+.flowerButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  line-height: 1;
+
+  &:hover {
+    transform: scale(1.1) rotate(10deg);
+    background-color: rgba(102, 126, 234, 0.1);
   }
 
-  .authButtons {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    button {
-      height: 50px;
-      border-radius: 7px;
-      font-family: "Inter", sans-serif;
-      font-size: 18px;
-      line-height: 28px;
-      margin-left: 10px;
-      padding: 5px 15px;
-      background-color: #fff;
-      cursor: pointer;
-    }
-
-    .signIn {
-      border: 0;
-    }
-
-    .signUp {
-      border: 1px solid #52c41a;
-      color: #52c41a;
-    }
-
-    .createArticle {
-      border: 1px solid #52c41a;
-      color: $success-color;
-      font-family: "Inter";
-      font-size: 14px;
-      line-height: 22px;
-      height: 32px;
-    }
-
-    .profileLink {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      margin-left: 10px;
-    }
-
-    .userName {
-      color: rgba(0, 0, 0, 0.85);
-      font-family: "Inter", sans-serif;
-      font-size: 18px;
-      line-height: 28px;
-      margin-right: 10px;
-    }
-
-    .userAvatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-
-    .logout {
-      border: 1px solid #000;
-      color: #000;
-    }
+  &.active {
+    transform: rotate(15deg);
+    background-color: rgba(102, 126, 234, 0.15);
   }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+}
+
+// ADDED: выпадающее меню
+.dropdownMenu {
+  position: absolute;
+  top: 70px;
+  // right: 120px; // Сдвигаем левее, чтобы не наезжать на аватар
+  right: 25%; // Сдвигаем левее, чтобы не наезжать на аватар
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  padding: 8px 0;
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+
+  @media (max-width: 768px) {
+    right: 100px;
+    min-width: 180px;
+  }
+
+  @media (max-width: 480px) {
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+  // width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: #667eea;
+  }
+
+  &--button {
+    width: 100%;
+  }
+
+  svg,
+  span {
+    font-size: 1.2rem;
+  }
+}
+
+// Остальные стили остаются без изменений
+.signIn,
+.signUp,
+.createArticle,
+.logout {
+  padding: 8px 16px;
+  border: 1px solid #667eea;
+  border-radius: 20px;
+  background: transparent;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+}
+
+.signUp {
+  // .createArticle {
+  background-color: #667eea;
+  color: white;
+  border: 1px solid #667eea;
+
+  &:hover {
+    background-color: #764ba2;
+    border-color: #764ba2;
+  }
+}
+
+.createArticle {
+  border: 0;
+  color: green;
+  transform: rotate(-30deg);
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #333;
+
+  &:hover .userName {
+    color: #667eea;
+  }
+}
+
+.userName {
+  font-weight: 500;
+  transition: color 0.2s;
+
+  @media (max-width: 768px) {
+    display: none; // На мобилке скрываем имя, оставляем только аватар
+  }
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+
+  .profileLink:hover & {
+    border-color: #667eea;
+  }
+
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
 }

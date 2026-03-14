@@ -1,4 +1,4 @@
-@use '../../variables.scss' as *;
+@use "../../variables.scss" as *;
 
 .loading {
   display: flex;
@@ -16,13 +16,33 @@
   padding: 20px;
   margin: 20px;
 
+  // ADDED: ограничение ширины на десктопе
+  @media (min-width: 768px) {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 12px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 40px;
+  }
+
   &Header {
     display: flex;
     justify-content: space-between;
+
+    // ADDED: на мобилке колонкой
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
+
   &TitleGroup {
     display: flex;
     flex-direction: column;
+    flex: 1;
   }
 
   &TitleAndLikes {
@@ -31,15 +51,20 @@
   }
 
   &Title {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-weight: 600;
     color: $info-color;
     font-size: 20px;
     line-height: 28px;
+
+    @media (min-width: 768px) {
+      font-size: 28px;
+      line-height: 36px;
+    }
   }
 
   .likes {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-size: 12px;
     line-height: 22px;
     margin-left: 10px;
@@ -53,7 +78,7 @@
     align-items: center;
 
     &:before {
-      content: '';
+      content: "";
       width: 16px;
       height: 16px;
       margin-right: 5px;
@@ -66,13 +91,13 @@
 
   .favorited {
     &:before {
-      background-image: url('../../assets/heart-red.png');
+      background-image: url("../../assets/heart-red.png");
     }
   }
 
   .unfavorited {
     &:before {
-      background-image: url('../../assets/heart-transparent.png');
+      background-image: url("../../assets/heart-transparent.png");
     }
   }
 
@@ -88,45 +113,80 @@
     display: flex;
     justify-content: space-between;
     align-items: start;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      gap: 15px;
+    }
   }
 
   &Description {
     display: inline-block;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-size: 12px;
     line-height: 22px;
     color: $secondary-color;
     padding-top: 16px;
-    width: 80%;
+    width: 100%; // CHANGED: было 80%
+
+    @media (min-width: 768px) {
+      width: 70%;
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
 
   &AuthorAndDate {
     display: flex;
+
+    @media (min-width: 768px) {
+      min-width: 250px;
+      justify-content: flex-end;
+    }
+
     .userNameAndCreationDate {
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
+
       .userName {
-        font-family: 'Inter';
+        font-family: "Inter";
         font-size: 18px;
         line-height: 28px;
         display: block;
         color: $heading-color;
         font-weight: 400;
+
+        @media (min-width: 768px) {
+          font-size: 20px;
+          text-align: right;
+        }
       }
+
       .creationDate {
-        font-family: 'Inter';
+        font-family: "Inter";
         font-size: 12px;
         line-height: 22px;
         color: $secondary-color;
         align-self: flex-end;
+
+        @media (min-width: 768px) {
+          font-size: 14px;
+        }
       }
     }
+
     .userImage {
       width: 46px;
       height: 46px;
       border-radius: 50%;
       margin-left: 10px;
+      object-fit: cover;
+
+      @media (min-width: 768px) {
+        width: 60px;
+        height: 60px;
+      }
     }
   }
 
@@ -134,14 +194,17 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
   }
 
   .tags {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
   }
+
   .tag {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -153,8 +216,15 @@
   }
 
   &Image {
-    width: 50%;
+    width: 100%;
     height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+
+    @media (min-width: 768px) {
+      width: 80%;
+      margin: 30px 0;
+    }
   }
 
   &Actions {
@@ -168,8 +238,13 @@
       border: 1px solid #52c41a;
       border-radius: 4px;
       cursor: pointer;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       font-size: 14px;
+
+      &:hover {
+        background: #52c41a;
+        color: white;
+      }
     }
 
     .deleteButton {
@@ -179,8 +254,13 @@
       border: 1px solid #ff4d4f;
       border-radius: 4px;
       cursor: pointer;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       font-size: 14px;
+
+      &:hover {
+        background: #ff4d4f;
+        color: white;
+      }
     }
   }
 
@@ -206,9 +286,14 @@
       max-width: 300px;
       text-align: center;
 
+      @media (min-width: 768px) {
+        max-width: 400px;
+        padding: 30px;
+      }
+
       p {
         margin: 0;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 14px;
       }
     }
@@ -224,7 +309,7 @@
         border: 1px solid #1890ff;
         border-radius: 4px;
         cursor: pointer;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 14px;
       }
 
@@ -235,7 +320,7 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 14px;
       }
     }

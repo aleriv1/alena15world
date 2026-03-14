@@ -4,6 +4,17 @@
   padding: 20px;
   background-color: #e9ecef;
 
+  // ADDED: ограничение ширины на десктопе
+  @media (min-width: 768px) {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 40px;
+  }
+
   .article {
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -11,22 +22,34 @@
     margin-bottom: 15px;
     border-radius: 5px;
 
+    // ADDED: увеличенные отступы на десктопе
+    @media (min-width: 768px) {
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+    }
+
     &Header {
       display: flex;
       justify-content: space-between;
+
+      // ADDED: на мобилке колонкой, на десктопе в ряд
+      @media (max-width: 425px) {
+        flex-direction: column;
+        gap: 15px;
+      }
     }
 
     &TitleGroup {
       display: flex;
       flex-direction: column;
+      flex: 1; // ADDED: занимает доступное пространство
     }
 
     &TitleAndLikes {
       display: flex;
-      // align-items: baseline;
       align-items: baseline;
       line-height: 28px;
-      // align-items: center;
     }
 
     &Title {
@@ -36,6 +59,13 @@
       color: $info-color;
       font-size: 20px;
       line-height: 28px;
+
+      // ADDED: увеличенный заголовок на десктопе
+      @media (min-width: 768px) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
       &Link {
         display: inline-block;
         text-decoration: none;
@@ -47,7 +77,6 @@
       font-family: "Inter";
       font-size: 12px;
       line-height: 28px;
-
       margin-left: 10px;
       color: $text-color;
       background: none;
@@ -93,6 +122,7 @@
     .tags {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap; // ADDED: перенос тегов на мобилке
     }
 
     .tag {
@@ -116,10 +146,17 @@
       align-self: start;
       display: flex;
 
+      // ADDED: фиксированная ширина на десктопе
+      @media (min-width: 768px) {
+        min-width: 220px;
+        justify-content: flex-end;
+      }
+
       .userNameAndCreationDate {
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
+
         .userName {
           font-family: "Inter";
           font-size: 18px;
@@ -127,7 +164,13 @@
           display: block;
           color: $heading-color;
           font-weight: 400;
+
+          @media (min-width: 768px) {
+            font-size: 18px;
+            text-align: right;
+          }
         }
+
         .creationDate {
           font-family: "Inter";
           font-size: 12px;
@@ -138,10 +181,11 @@
       }
 
       .userImage {
-        // width: 46px;
         height: 46px;
         border-radius: 50%;
         margin-left: 10px;
+        width: 46px; // ADDED: фиксированная ширина
+        object-fit: cover; // ADDED: чтобы аватар не искажался
       }
     }
 
@@ -152,7 +196,13 @@
       line-height: 22px;
       color: $text-color;
       padding-top: 10px;
-      width: 80%;
+      width: 100%; // CHANGED: было 80%
+
+      @media (min-width: 768px) {
+        width: 80%;
+        font-size: 14px;
+        line-height: 24px;
+      }
     }
   }
 }
@@ -161,6 +211,12 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+
+  @media (min-width: 768px) {
+    margin-top: 30px;
+    gap: 8px;
+  }
+
   button {
     font-family: "Inter", sans-serif;
     font-size: 12px;
@@ -173,23 +229,39 @@
     width: 23px;
     height: 23px;
     cursor: pointer;
+
+    @media (min-width: 768px) {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      margin: 0 3px;
+    }
+
     &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
     }
+
     &.activeButton {
       background-color: #007bff;
       color: #fff;
       border-radius: 5px;
     }
+
     &.notActiveButton {
       background: none;
       outline: none;
       border: 0;
     }
   }
+
   span {
     margin: 0 10px;
     font-weight: bold;
+
+    @media (min-width: 768px) {
+      margin: 0 15px;
+      font-size: 16px;
+    }
   }
 }
