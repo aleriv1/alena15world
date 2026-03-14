@@ -1,98 +1,72 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_URL = "https://blog-platform.kata.academy/api";
+const API_URL = "https://cms.alena15world.ru/wp-json";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["Articles", "Article"],
+  tagTypes: ["Articles", "Article"], // Оставили старые теги, чтобы invalidateTags работал без правок в App.jsx
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
-      if (token) {
-        headers.set("Authorization", `Token ${token}`);
-      }
+      if (token) headers.set("Authorization", `Bearer ${token}`);
       return headers;
     },
   }),
+
   endpoints: (builder) => ({
     login: builder.mutation({
       query: ({ email, password }) => ({
-        url: "/users/login",
+        url: "/jwt-auth/v1/token",
         method: "POST",
-        body: { user: { email, password } },
+        body: { username: email, password },
+      }),
+      transformResponse: (res) => ({
+        user: {
+          token: res.token,
+          username: res.user_display_name || res.user_nicename || "admin",
+          email: res.user_email,
+          image: "", // аватар пока пустой
+        },
       }),
     }),
-    register: builder.mutation({
-      query: ({ username, email, password }) => ({
-        url: "/users",
-        method: "POST",
-        body: { user: { username, email, password } },
-      }),
-    }),
-    updateUser: builder.mutation({
-      query: (userData) => ({
-        url: "/user",
-        method: "PUT",
-        body: { user: userData },
-      }),
-    }),
+
     getArticles: builder.query({
-      query: ({ page, limit }) => ({
-        url: `/articles?limit=${limit}&offset=${(page - 1) * limit}`,
-      }),
+      query: ({ page = 1, limit = 10 }) =>
+        `/wp/v2/posts?per_page=${limit}&page=${page}&_embed&categories=2`,
       providesTags: ["Articles"],
+      transformResponse: (posts, meta) => ({
+        articles: posts, // ИЗМЕНЕНО: ключ "articles" для совместимости с ArticleList
+        articlesCount: Number(
+          meta.response.headers.get("X-WP-Total") || posts.length,
+        ), // ИЗМЕНЕНО: для пагинации
+      }),
     }),
+
     getArticle: builder.query({
-      query: (slug) => `/articles/${slug}`,
-      providesTags: (result, error, slug) => [{ type: "Article", id: slug }],
+      query: (id) => `/wp/v2/posts/${id}?_embed`,
+      providesTags: (result, error, id) => [{ type: "Article", id }],
     }),
+
     createArticle: builder.mutation({
       query: (article) => ({
-        url: "/articles",
+        url: "/wp/v2/posts",
         method: "POST",
-        body: { article },
+        body: {
+          title: article.title,
+          content: article.body || article.text, // ИЗМЕНЕНО: WP использует content вместо body
+          status: "publish",
+          categories: [2],
+        },
       }),
       invalidatesTags: ["Articles"],
-    }),
-    updateArticle: builder.mutation({
-      query: ({ slug, article }) => ({
-        url: `/articles/${slug}`,
-        method: "PUT",
-        body: { article },
-      }),
-      invalidatesTags: (result, error, { slug }) => [
-        "Articles",
-        { type: "Article", id: slug },
-      ],
-    }),
-    deleteArticle: builder.mutation({
-      query: (slug) => ({
-        url: `/articles/${slug}`,
-        method: "DELETE",
-      }),
-    }),
-    toggleFavorite: builder.mutation({
-      query: ({ slug, favorited }) => ({
-        url: `/articles/${slug}/favorite`,
-        method: favorited ? "DELETE" : "POST",
-      }),
-      invalidatesTags: (result, error, { slug }) => [
-        "Articles",
-        { type: "Article", id: slug },
-      ],
     }),
   }),
 });
 
 export const {
   useLoginMutation,
-  useRegisterMutation,
-  useUpdateUserMutation,
   useGetArticlesQuery,
   useGetArticleQuery,
   useCreateArticleMutation,
-  useUpdateArticleMutation,
-  useDeleteArticleMutation,
-  useToggleFavoriteMutation,
 } = api;
