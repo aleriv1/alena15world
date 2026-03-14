@@ -6,8 +6,17 @@ import mockAva from "../../assets/mockAva.png";
 
 import styles from "./Header.module.scss";
 
+// ADDED: импорт hook из RTK Query
+// import { useGetCurrentUserQuery } from "../../services/api";
+import { useGetCurrentUserQuery } from "../../store/api";
+
 function Header({ onLogout }) {
   const { user } = useContext(AuthContext);
+
+  // ADDED: запрос текущего пользователя из WordPress API
+  const { data: currentUser } = useGetCurrentUserQuery(undefined, {
+    skip: !user, // ADDED: если пользователь не залогинен — запрос не выполняется
+  });
 
   return (
     <header className={styles.header}>
@@ -26,7 +35,8 @@ function Header({ onLogout }) {
                 {user.username === "admin" ? "Alena" : user.username}
               </span>
               <img
-                src={user.image || mockAva}
+                // src={user.image || mockAva}
+                src={currentUser?.avatar || mockAva}
                 alt={user.username}
                 className={styles.userAvatar}
               />

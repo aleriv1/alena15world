@@ -31,6 +31,21 @@ export const api = createApi({
       }),
     }),
 
+    // =========================
+    // ADDED: получение текущего пользователя
+    // =========================
+    getCurrentUser: builder.query({
+      query: () => "/wp/v2/users/me",
+
+      // ADDED: сразу преобразуем ответ
+      transformResponse: (user) => ({
+        id: user.id,
+        username: user.name,
+        email: user.email,
+        avatar: user.avatar_urls?.["96"], // берем аватар
+      }),
+    }),
+
     getArticles: builder.query({
       query: ({ page = 1, limit = 10 }) =>
         `/wp/v2/posts?per_page=${limit}&page=${page}&_embed&categories=2`,
@@ -81,6 +96,7 @@ export const api = createApi({
 
 export const {
   useLoginMutation,
+  useGetCurrentUserQuery, // ADDED: hook для получения пользователя
   useGetArticlesQuery,
   useGetArticleQuery,
   useCreateArticleMutation,
