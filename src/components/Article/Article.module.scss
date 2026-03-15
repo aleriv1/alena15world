@@ -16,6 +16,16 @@
   padding: 20px;
   margin: 20px;
 
+  @media (max-width: 767px) {
+    min-width: 70%;
+  }
+
+  @media (min-width: 768px) {
+    min-width: 600px;
+    max-width: 1200px;
+    padding: 30px;
+  }
+
   // ADDED: ограничение ширины на десктопе
   @media (min-width: 768px) {
     max-width: 900px;
