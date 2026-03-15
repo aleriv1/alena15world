@@ -42,9 +42,9 @@ function Header({ onLogout }) {
             </Link>
             <Link to="/profile" className={styles.profileLink}>
               {/* <span className={styles.userName}>{user.username}</span> */}
-              <span className={styles.userName}>
+              {/* <span className={styles.userName}>
                 {user.username === "admin" ? "Alena" : user.username}
-              </span>
+              </span> */}
               <img
                 // src={user.image || mockAva}
                 src={currentUser?.avatar || AlenaAva}

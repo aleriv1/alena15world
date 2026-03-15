@@ -45,7 +45,10 @@ function ArticleList() {
             <div className={styles.articleAuthorAndDate}>
               <div className={styles.userNameAndCreationDate}>
                 <span className={styles.userName}>
-                  {article._embedded?.author?.[0]?.name || "Аноним"}{" "}
+                  {/* {article._embedded?.author?.[0]?.name || "Аноним"}{" "} */}
+                  {article._embedded?.author?.[0]?.name === "admin"
+                    ? "Alena"
+                    : article._embedded?.author?.[0]?.name || "Аноним"}{" "}
                   {/* ИЗМЕНЕНО: путь к имени */}
                 </span>
                 <span className={styles.creationDate}>

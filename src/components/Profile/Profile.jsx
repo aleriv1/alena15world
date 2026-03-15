@@ -57,10 +57,16 @@ function Profile() {
 
   return (
     <div className={styles.profile}>
-      <h2>{user?.username === "admin" ? "Alena" : user?.username}</h2>
-      <ul>
-        <li>Дракон</li>
-      </ul>
+      {/* <h2>{user?.username === "admin" ? "Alena" : user?.username}</h2> */}
+      <p className={styles.wish}>
+        Пусть свежесть и тепло всегда будут для тебя в гармонии.
+      </p>
+      <p className={styles.wish}>Лучшего!</p>
+
+      <p className={styles.clarification}>
+        А вообще здесь планируется возможность изменения профиля ;)..
+      </p>
+
       {/* <h2 className={styles.title}>Edit Profile</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className={styles.label}>
