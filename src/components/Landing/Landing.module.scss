@@ -1,0 +1,199 @@
+.landing {
+  flex: 1;
+  // min-height: calc(100vh - 80px); // ADDED: учитываем высоту header
+  // height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fdf2f8 0%, #ffe9f0 100%);
+  position: relative;
+  overflow: hidden;
+
+  // ADDED: декоративный фон из цветов
+  &::before {
+    content: "🌸";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 4rem;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+  }
+
+  &::after {
+    content: "🌼";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 5rem;
+    opacity: 0.1;
+    transform: rotate(15deg);
+  }
+
+  @media (min-width: 768px) {
+    // min-height: calc(100vh - 100px);
+    // min-height: calc(100vh);
+  }
+}
+
+.content {
+  // flex: 1;
+  max-width: 800px;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1.5s ease; // ADDED: анимация появления
+
+  @media (min-width: 768px) {
+    padding: 60px 40px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 10px;
+  line-height: 1.2;
+
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 4rem;
+  }
+}
+
+.name {
+  display: block;
+  background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  margin-top: 8px;
+
+  @media (min-width: 768px) {
+    display: inline;
+    margin-top: 0;
+  }
+}
+
+.date {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 30px;
+  font-style: italic;
+
+  @media (min-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+  }
+}
+
+.message {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px 20px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  @media (min-width: 768px) {
+    padding: 40px 60px;
+    margin-bottom: 50px;
+  }
+}
+
+.greeting {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 1.3rem;
+    line-height: 2;
+  }
+}
+
+.wishes {
+  font-size: 1.2rem;
+  color: #f43f5e;
+  font-weight: 500;
+  margin: 0;
+
+  @media (min-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  margin-bottom: 40px;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    padding: 18px 50px;
+    font-size: 1.3rem;
+  }
+}
+
+.flowerDecoration {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.flower {
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 1s;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

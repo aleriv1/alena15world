@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { api } from "./store/api";
+import Landing from "./components/Landing/Landing"; // ADDED: импорт лендинга
 import ArticleList from "./components/ArticleList/ArticleList";
 import ArticleDetail from "./components/Article/Article";
 // import SignUp from './components/SignUp/SignUp'
@@ -48,7 +49,9 @@ function App() {
 
           <main className={styles.mainContent}>
             <Routes>
-              <Route path="/" element={<ArticleList />} />
+              {/* CHANGED: главная страница теперь лендинг */}
+              <Route path="/" element={<Landing />} />
+              {/* <Route path="/" element={<ArticleList />} /> */}
               <Route path="/articles" element={<ArticleList />} />
               <Route
                 path="/articles/:slug/edit"

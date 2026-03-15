@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 import { AuthContext } from "../../App";
 // import mockAva from "../../assets/mockAva.png";
@@ -28,7 +29,10 @@ function Header({ onLogout }) {
   return (
     <header className={styles.header}>
       <Link to="/" className={styles.logoLink}>
-        <div className={styles.logo}>Alena Diary</div>
+        {/* <div className={styles.logo}>Alena Diary</div> */}
+        <div className={styles.logo}>
+          <img className={styles.logo} src={logo} alt="logo" />
+        </div>
       </Link>
       <div className={styles.authButtons}>
         {user ? (

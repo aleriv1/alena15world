@@ -4,6 +4,10 @@
   padding: 20px;
   background-color: #e9ecef;
 
+  @media (max-width: 767px) {
+    min-width: 70%;
+  }
+
   // ADDED: ограничение ширины на десктопе
   @media (min-width: 768px) {
     max-width: 1200px;
@@ -32,9 +36,10 @@
     &Header {
       display: flex;
       justify-content: space-between;
+      gap: 15px;
 
       // ADDED: на мобилке колонкой, на десктопе в ряд
-      @media (max-width: 425px) {
+      @media (max-width: 575px) {
         flex-direction: column;
         gap: 15px;
       }
@@ -143,8 +148,10 @@
     }
 
     &AuthorAndDate {
-      align-self: start;
+      // align-self: start;
       display: flex;
+      justify-content: space-around;
+      min-width: 80%;
 
       // ADDED: фиксированная ширина на десктопе
       @media (min-width: 768px) {

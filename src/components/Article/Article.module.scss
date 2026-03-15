@@ -138,6 +138,9 @@
 
   &AuthorAndDate {
     display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // gap: 130px;
 
     @media (min-width: 768px) {
       min-width: 250px;
